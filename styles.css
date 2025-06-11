@@ -52,10 +52,14 @@ nav {
 }
 .user-avatar {
   width: 36px;
-    transition: box-shadow 0.2s, opacity 0.2s;
+  transition: box-shadow 0.2s, opacity 0.2s;
 }
 
 .user-avatar:hover {
+  box-shadow: 0 4px 32px rgba(26, 26, 26, 0.15);
+  opacity: 0.85;
+}
+.cart-icon:hover {
   box-shadow: 0 4px 32px rgba(26, 26, 26, 0.15);
   opacity: 0.85;
 }
