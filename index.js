@@ -70,6 +70,7 @@ function addToCart() {
             formAlert(`Product has been added to your cart sucessfully┌`, 'success');
         }   else {
             formAlert(`Can't add negative value`, 'failure');
+        }
         };
 }
 addToCart();
