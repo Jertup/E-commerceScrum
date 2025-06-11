@@ -1,33 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
+
 body {
   font-family: 'Kumbh Sans', Arial, sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 main,
 .product-container {
   flex: 1 0 auto;
 }
+
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 2vw;
   height: 80px;
   border-bottom: 1px solid hsl(220, 14%, 75%);
   background: #fff;
+  min-width: 0;
 }
 
 .logo {
   height: 40px;
-  margin-right: 6rem;
+  margin-right: 6vw;
+  max-width: 100%;
 }
 
 .nav-center {
   display: flex;
-  gap: 4rem;
+  gap: 4vw;
   flex: 1;
+  min-width: 0;
 }
 
 .nav-center a {
@@ -44,55 +53,107 @@ nav {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 2vw;
 }
 
 .cart-icon {
   width: 24px;
   cursor: pointer;
+  max-width: 100%;
 }
 .user-avatar {
   width: 36px;
   transition: box-shadow 0.2s, opacity 0.2s;
+  max-width: 100%;
 }
 
-.user-avatar:hover {
-  box-shadow: 0 4px 32px rgba(26, 26, 26, 0.15);
-  opacity: 0.85;
-}
+.user-avatar:hover,
 .cart-icon:hover {
   box-shadow: 0 4px 32px rgba(26, 26, 26, 0.15);
   opacity: 0.85;
 }
+
 .product-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  gap: 3rem;
-  max-width: 900px;
-  margin: 3rem auto;
-  padding: 0 1rem;
+  gap: 2vw;
+  max-width: 1200px;
+  margin: 3vw auto;
+  padding: 0 2vw;
+  width: 100%;
+  box-sizing: border-box;
 }
-.product-details {
-  flex: 1;
+
+.product-image-section {
+  flex: 1 1 350px;
+  min-width: 280px;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding-top: 0.5rem;
+  align-items: center;
+  width: 100%;
 }
+
+.main-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+#images-product {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1vw;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1vw;
+  flex-wrap: wrap;
+}
+
+.thumbnail-page {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: border 0.2s, opacity 0.2s;
+}
+
+.thumbnail-page:hover {
+  border: 2px solid hsl(26, 100%, 55%);
+  opacity: 0.7;
+}
+
+.product-details {
+  flex: 1 1 350px;
+  min-width: 280px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 0.5vw;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .price-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 1.5rem 0 1rem 0;
-  gap: 0.25rem;
+  margin: 1.5vw 0 1vw 0;
+  gap: 0.25vw;
 }
 
 .price-row {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: 1vw;
 }
 
 .current-price {
@@ -108,7 +169,7 @@ nav {
   font-size: 1rem;
   border-radius: 6px;
   padding: 2px 8px;
-  margin-left: 1rem;
+  margin-left: 1vw;
 }
 
 .old-price {
@@ -116,14 +177,15 @@ nav {
   text-decoration: line-through;
   font-size: 1rem;
   font-weight: 700;
-  margin-top: 0.5rem;
+  margin-top: 0.5vw;
 }
+
 .cart-controls {
   display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 1vw;
   width: 100%;
   flex-wrap: wrap;
+  margin-top: 1vw;
 }
 
 .quantity-selector {
@@ -131,9 +193,11 @@ nav {
   align-items: center;
   background: hsl(223, 64%, 98%);
   border-radius: 10px;
-  padding: 0.5rem 1rem;
-  gap: 1.5rem;
+  padding: 0.5vw 1vw;
+  gap: 1.5vw;
   min-width: 120px;
+  flex: 1 1 120px;
+  max-width: 200px;
 }
 
 .qty-btn {
@@ -143,7 +207,7 @@ nav {
   font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
-  padding: 0 0.5rem;
+  padding: 0 0.5vw;
   transition: color 0.2s;
   user-select: none;
 }
@@ -161,18 +225,20 @@ nav {
 }
 
 .add-to-cart-btn {
-  flex: 1;
+  flex: 2 1 180px;
+  min-width: 120px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.75vw;
   background: hsl(26, 100%, 55%);
   color: #fff;
   font-size: 1.1rem;
   font-weight: 700;
   border: none;
   border-radius: 10px;
-  padding: 0.9rem 1.5rem;
+  padding: 0.9vw 1.5vw;
   box-shadow: 0 10px 20px 0 hsl(26, 100%, 55%, 0.2);
   cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s;
@@ -189,14 +255,15 @@ nav {
   height: 18px;
   filter: brightness(0) invert(1);
 }
+
 .footer {
   width: 100%;
-  padding: 2rem 0 1rem 0;
+  padding: 2vw 0 1vw 0;
   background: #f7f8fd;
   color: hsl(219, 9%, 45%);
   text-align: center;
   font-size: 1rem;
-  margin-top: 3rem;
+  margin-top: 3vw;
   border-top: 1px solid hsl(220, 14%, 75%);
   flex-shrink: 0;
 }
@@ -213,85 +280,31 @@ nav {
   text-decoration: underline;
 }
 
-#images-product {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-}
-.thumbnail-page {
-  border: 2px solid transparent;
-}
-.thumbnail-page:hover {
-  border: 2px solid hsl(26, 100%, 55%);
-  opacity: 0.7;
-}
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    height: auto;
-    padding: 1rem;
-    gap: 1rem;
-  }
-
-  .nav-center {
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
+/* Make everything stack on small screens */
+@media (max-width: 700px) {
   .product-container {
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    margin: 1rem auto;
-    padding: 0 0.5rem;
+    gap: 4vw;
+    margin: 2vw auto;
+    padding: 0 2vw;
+  }
+  .product-image-section,
+  .product-details {
+    max-width: 100%;
+    width: 100%;
+    align-items: center;
+    padding: 0;
+  }
+  .main-image {
     max-width: 100%;
   }
-
-  #images-product {
+  .cart-controls {
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    gap: 2vw;
+    align-items: stretch;
+  }
+  .add-to-cart-btn {
     width: 100%;
-  }
-
-  #image-container,
-  .main-image {
-    width: 100vw;
-    max-width: 400px;
-    height: auto;
-  }
-
-  .thumbnail-container {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .thumbnail-page,
-  .thumbnail {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-  }
-
-  .footer {
-    font-size: 0.9rem;
-    padding: 1rem 0 0.5rem 0;
-    margin-top: 1.5rem;
-  }
-}
-
-/* Optional: For very small screens */
-@media (max-width: 480px) {
-  .main-image {
-    max-width: 95vw;
-  }
-  .thumbnail-page,
-  .thumbnail {
-    width: 44px;
-    height: 44px;
   }
 }
