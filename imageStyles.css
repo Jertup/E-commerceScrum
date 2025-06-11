@@ -17,6 +17,11 @@
   justify-content: center;
 }
 
+#image-container img {
+  border-radius: 40px;
+  padding: 20px;
+}
+
 .arrow-container {
   display: flex;
   align-items: center;
