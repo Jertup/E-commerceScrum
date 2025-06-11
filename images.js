@@ -1,9 +1,10 @@
 const prev = document.querySelector("#previous-arrow")
 const next = document.querySelector("#next-arrow")
-const mainImg = document.querySelector("#main-image")
+const mainImg = document.querySelectorAll(".main-image")
 const thumbnailImages = document.querySelectorAll(".thumbnail")
+const pageThumbnailImages = document.querySelectorAll(".thumbnail-page")
 
-let viewImages = false
+setLighboxActive(false)
 let imageIndex = 1
 const imageCount = 4
 
@@ -13,7 +14,7 @@ function setImageIndex(index) {
         return
     }
     imageIndex = index
-    mainImg.setAttribute("src", `images/image-product-${imageIndex}.jpg`)
+    mainImg.forEach(img => img.setAttribute("src", `images/image-product-${imageIndex}.jpg`))
 
     // Current image thumbnail is highlighted
     thumbnailImages.forEach((img, index) => {
@@ -21,8 +22,8 @@ function setImageIndex(index) {
     })
 }
 
-function setImageView(viewImages) {
-    document.querySelector("#image-component").style.display = viewImages ? "block" : "none";
+function setLighboxActive(viewImages) {
+    document.querySelector("#lightbox").style.display = viewImages ? "block" : "none";
 }
 
 // Decrease and increase image index
@@ -31,7 +32,7 @@ next.addEventListener("click", () => setImageIndex(imageIndex + 1))
 
 const closeButton = document.querySelector("#close-button")
 closeButton.addEventListener("click", () => {
-    setImageView(false)
+    setLighboxActive(false)
     console.log("Image view closed")
 })
 
@@ -40,4 +41,16 @@ thumbnailImages.forEach((thumbnail, index) => {
     thumbnail.addEventListener("click", () => {
         setImageIndex(index + 1)
     })
+})
+
+pageThumbnailImages.forEach((thumbnail, index) => {
+    thumbnail.addEventListener("click", () => {
+        setImageIndex(index + 1)
+    })
+})
+
+// Main image click event to open lightbox
+document.querySelector("#main-image-page").addEventListener("click", () => {
+    setLighboxActive(true)
+    console.log("Image view opened")
 })
