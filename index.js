@@ -71,12 +71,12 @@ function addToCart() {
         }   else {
             formAlert(`Can't add negative value`, 'failure');
         }
-        };
+        });
 }
 addToCart();
 
 //Show cart product's count
-function inCartCount {
+function inCartCount() {
     let productsCount = cartList.childElementCount;
     inCart.textContent = productsCount;
     if (productsCount == 0) {
@@ -105,7 +105,7 @@ function deleteFromCart() {
 //Events
 cart.addEventListener('click', (e) => {
     let cartIcon = e.target.closest('.cart-icon');
-    cartIcon ? cart.classList.toggle('open') ; '';
+    cartIcon ? cart.classList.toggle('open') : '';
 });
 
 //How many items will be added by plus (+) and (-) buttons
