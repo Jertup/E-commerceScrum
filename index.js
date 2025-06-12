@@ -1,118 +1,86 @@
-// Variables
+ document.addEventListener("DOMContentLoaded", () => {
+    const plusBtn = document.querySelector(".qty-btn.plus");
+    const minusBtn = document.querySelector(".qty-btn.minus");
+    const quantityDisplay = document.querySelector(".quantity");
+    const addToCartBtn = document.querySelector(".add-to-cart-btn");
+    const cartIcon = document.querySelector(".cart-icon");
 
-let cart = document.querySelector('.cart');
-let cartContent = document.querySelector('.cart-content');
-let cartList = document.querySelector('.cart-content .cart-list');
-let inCart = document.querySelector('.cart .in-cart');
+    // Create cart badge and dropdown dynamically
+    const cartBadge = document.createElement("div");
+    cartBadge.id = "cart-count";
+    cartBadge.className = "cart-badge hidden";
+    cartIcon.parentNode.appendChild(cartBadge);
 
-let addToCartForm = document.querySelector('.add-to-cart-form');
-let formValidation = document.querySelector('.add-to-cart-form .form-alert');
-let checkOutBtn = document.querySelector('.cart-list-wrapper .checkout-btn');
-let productQuantity = document.querySelector('.add-to-cart-form .product-quantity-num');
+    const cartDropdown = document.createElement("div");
+    cartDropdown.id = "cart-dropdown";
+    cartDropdown.className = "cart-dropdown hidden";
+    document.body.appendChild(cartDropdown);
 
-let plusBtn = document.querySelector('.add-to-cart-form .plus');
-let minusBtn = document.querySelector('.add-to-cart-form .minus');
+    let quantity = 0;
 
-//Functions
-
-
-// Add product to cart
-function addToCart() {
-    addToCartForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let getProductQuantity = productQuantity.textContent;
-        if (getProductQuantity != 0) {
-            let productTitle = document.querySelector(
-                '.product-details-wrapper .product-title'
-            ).textContent;
-            
-            // Use first thumbnail image as product image in the cart
-            let productThumb = thumbImagesDivs[0]
-            .querySelector('img')
-            .getAttribute('src')
-
-            let productPrice = document
-            .querySelector('product-details-wrapper .current-price')
-            .textContent.replace('$', '');
-            let totalPrice = '$' + parseInt(getProductQuantity * productPrice);
-            if (cartList.childElementCount == 0) {
-                checkOutBtn.style.display = 'block';
-                cartList.innerHTML = '';
-            }
-            cartList.innerHTML += `
-            <div class='cart-item'>
-                <div class='item-image>
-                    <img
-                    src=${productThumb}
-                    alt='Product Image'
-                    />
-                 </div>
-                <div class='item-info'>
-                    <h4 class='item-title'>
-                    ${productTitle}
-                    </h4>
-                    <p class='item-price-wrapper'>
-                        <span class='item-price'>${productPrice}</span>
-                        <span class='item-count'>${getProductQuantity}</span>
-                        <span class='total-price'>${totalPrice}</span>
-                    </p>
-                    </div>
-                    <div class='item-delete'>
-                        <img
-                            src='./images/icon-delete.svg'
-                            alt='Delete Product'
-                        />
-                    </div>
-                </div>
-            `;
-            deleteFromCart();
-            inCartCount();
-            formAlert(`Product has been added to your cart sucessfully┌`, 'success');
-        }   else {
-            formAlert(`Can't add negative value`, 'failure');
-        }
-        });
-}
-addToCart();
-
-//Show cart product's count
-function inCartCount() {
-    let productsCount = cartList.childElementCount;
-    inCart.textContent = productsCount;
-    if (productsCount == 0) {
-        cart.classList.remove('show-count');
-        cart.classList.add('empty');
-        checkOutBtn.style.display = 'none';
-        cartList.textContent = 'Your cart is empty';
-    }   else {
-        cart.classList.add('show-count');
-        cart.classList.remove('remove');
+    // Update displayed quantity
+    function updateQuantityDisplay() {
+      quantityDisplay.textContent = quantity;
     }
-}
-inCartCount();
 
-// Delete cart product 
-function deleteFromCart() {
-    cartContent.querySelectorAll('.cart-item').forEach((product) => {
-        product.addEventListener('click', (e) => {
-            if (!e.target.closest('.item-delete')) return;
-            product.remove();
-            inCartCount();
-        });
+    plusBtn.addEventListener("click", () => {
+      quantity++;
+      updateQuantityDisplay();
     });
-}
 
-//Events
-cart.addEventListener('click', (e) => {
-    let cartIcon = e.target.closest('.cart-icon');
-    cartIcon ? cart.classList.toggle('open') : '';
-});
+    minusBtn.addEventListener("click", () => {
+      if (quantity > 0) {
+        quantity--;
+        updateQuantityDisplay();
+      }
+    });
 
-//How many items will be added by plus (+) and (-) buttons
-plusBtn.addEventListener('click', () => {
-    productQuantity.textContent++;
-});
+    // Render cart dropdown HTML
+    function renderCart() {
+      if (quantity === 0) {
+        cartDropdown.innerHTML = `<h4>Cart</h4><p class="empty-cart-msg">Your cart is empty.</p>`;
+        cartBadge.classList.add("hidden");
+        return;
+      }
 
-minusBtn.addEventListener('click', () => {
-    if (productQuantity.textContent != 0) productQuantity.textContent--;
-});
+      const total = (125 * quantity).toFixed(2);
+      cartBadge.textContent = quantity;
+      cartBadge.classList.remove("hidden");
+
+      cartDropdown.innerHTML = `
+        <h4>Cart</h4>
+        <div class="cart-item">
+          <img src="./images/image-product-1-thumbnail.jpg" class="cart-thumb" alt="Product thumb">
+          <div>
+            <p>Fall Limited Edition Sneakers</p>
+            <p>$125.00 x ${quantity} <strong>$${total}</strong></p>
+          </div>
+          <img src="./images/icon-delete.svg" class="delete-icon" alt="Delete">
+        </div>
+        <button class="checkout-btn">Checkout</button>
+      `;
+
+      cartDropdown.querySelector(".delete-icon").addEventListener("click", () => {
+        quantity = 0;
+        updateQuantityDisplay();
+        renderCart();
+      });
+    }
+
+    addToCartBtn.addEventListener("click", () => {
+      if (quantity > 0) {
+        renderCart();
+      }
+    });
+
+    cartIcon.addEventListener("click", () => {
+      cartDropdown.classList.toggle("hidden");
+    });
+
+    // Hide cart on outside click
+    document.addEventListener("click", (e) => {
+      if (!cartDropdown.contains(e.target) && !cartIcon.contains(e.target)) {
+        cartDropdown.classList.add("hidden");
+      }
+    });
+  });
