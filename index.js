@@ -4,12 +4,13 @@
     const quantityDisplay = document.querySelector(".quantity");
     const addToCartBtn = document.querySelector(".add-to-cart-btn");
     const cartIcon = document.querySelector(".cart-icon");
+    const cartWrapper = document.querySelector(".cart-wrapper");
 
     // Create cart badge and dropdown dynamically
     const cartBadge = document.createElement("div");
     cartBadge.id = "cart-count";
     cartBadge.className = "cart-badge hidden";
-    cartIcon.parentNode.appendChild(cartBadge);
+    cartWrapper.appendChild(cartBadge);
 
     const cartDropdown = document.createElement("div");
     cartDropdown.id = "cart-dropdown";
