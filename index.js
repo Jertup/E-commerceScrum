@@ -18,6 +18,7 @@
     document.body.appendChild(cartDropdown);
 
     let quantity = 0;
+    let cartQuantity = 0;
 
     // Update displayed quantity
     function updateQuantityDisplay() {
@@ -38,14 +39,14 @@
 
     // Render cart dropdown HTML
     function renderCart() {
-      if (quantity === 0) {
+      if (cartQuantity === 0) {
         cartDropdown.innerHTML = `<h4>Cart</h4><p class="empty-cart-msg">Your cart is empty.</p>`;
         cartBadge.classList.add("hidden");
         return;
       }
 
-      const total = (125 * quantity).toFixed(2);
-      cartBadge.textContent = quantity;
+      const total = (125 * cartQuantity).toFixed(2);
+      cartBadge.textContent = cartQuantity;
       cartBadge.classList.remove("hidden");
 
       cartDropdown.innerHTML = `
@@ -54,7 +55,7 @@
           <img src="./images/image-product-1-thumbnail.jpg" class="cart-thumb" alt="Product thumb">
           <div>
             <p>Fall Limited Edition Sneakers</p>
-            <p>$125.00 x ${quantity} <strong>$${total}</strong></p>
+            <p>$125.00 x ${cartQuantity} <strong>$${total}</strong></p>
           </div>
           <img src="./images/icon-delete.svg" class="delete-icon" alt="Delete">
         </div>
@@ -62,7 +63,7 @@
       `;
 
       cartDropdown.querySelector(".delete-icon").addEventListener("click", () => {
-        quantity = 0;
+        cartQuantity = 0;
         updateQuantityDisplay();
         renderCart();
       });
@@ -70,11 +71,16 @@
 
     addToCartBtn.addEventListener("click", () => {
       if (quantity > 0) {
+        cartQuantity += quantity;
+        quantity = 0;
         renderCart();
+        updateQuantityDisplay();
+
       }
     });
 
     cartIcon.addEventListener("click", () => {
+      renderCart();
       cartDropdown.classList.toggle("hidden");
     });
 
