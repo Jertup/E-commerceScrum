@@ -54,12 +54,29 @@ nav {
   display: flex;
   align-items: center;
   gap: 2vw;
+  position: relative;
 }
 
 .cart-icon {
   width: 24px;
   cursor: pointer;
   max-width: 100%;
+}
+.cart-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.cart-badge {
+  pointer-events: none;
+  display: inline-block;
+  background-color: hsl(26, 100%, 55%);
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-left: 8px; /* Space between icon and badge */
+  vertical-align: middle;
 }
 .user-avatar {
   width: 36px;
