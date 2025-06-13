@@ -375,3 +375,19 @@ nav {
   color: hsl(219, 9%, 45%);
   margin-top: 1rem;
 }
+
+.cart-qty-controls {
+  display: flex;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.cart-qty-controls button {
+  padding: 4px 8px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: hsl(26, 100%, 55%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
