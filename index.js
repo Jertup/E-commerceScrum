@@ -55,17 +55,42 @@
           <img src="./images/image-product-1-thumbnail.jpg" class="cart-thumb" alt="Product thumb">
           <div>
             <p>Fall Limited Edition Sneakers</p>
-            <p>$125.00 x ${cartQuantity} <strong>$${total}</strong></p>
+            <p>$125.00 x <span class="cart-qty">${cartQuantity}</span> <strong>$${total}</strong></p>
+            <div class="cart-qty-controls">
+              <button class="cart-minus">−</button>
+              <button class="cart-plus">+</button>
+            </div>
           </div>
           <img src="./images/icon-delete.svg" class="delete-icon" alt="Delete">
         </div>
         <button class="checkout-btn">Checkout</button>
       `;
 
-      cartDropdown.querySelector(".delete-icon").addEventListener("click", () => {
-        cartQuantity = 0;
-        updateQuantityDisplay();
+  // Add event listeners after rendering
+      cartDropdown.querySelector(".cart-plus").addEventListener("click", (e) => {
+        e.stopPropagation();
+        cartQuantity++;
         renderCart();
+        updateQuantityDisplay();
+      });
+
+      cartDropdown.querySelector(".cart-minus").addEventListener("click", (e) => {
+        e.stopPropagation();
+        cartQuantity = Math.max(0, cartQuantity - 1);
+        renderCart();
+        updateQuantityDisplay();
+      });
+
+      cartDropdown.querySelector(".delete-icon").addEventListener("click", (e) => {
+        e.stopPropagation();
+        cartQuantity = 0;
+        renderCart();
+        updateQuantityDisplay();
+      });
+
+  // Prevent clicks inside cart from closing it
+      cartDropdown.addEventListener("click", (e) => {
+        e.stopPropagation();
       });
     }
 
